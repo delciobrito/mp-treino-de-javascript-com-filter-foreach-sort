@@ -19,13 +19,13 @@ E crie o seguinte arquivo:
 ## 🔨 Requisitos
 
 ## Requisito 1: Renderização de Produtos com Imagens
-No arquivo `index.html`, implemente a renderização dos produtos utilizando a DOM e adicione as imagens com as propriedades definidas no arquivo `data.js`.A partir dos dados presentes no array de produtos em `data.js`. Para cada produto, insira uma tag `<img>` com a classe `imageProduct`, configurando o atributo src com o valor de srcImg de cada objeto no array.
+No arquivo `index.html`, implemente a renderização dos produtos utilizando a DOM e adicione as imagens com as propriedades definidas no arquivo `data.js`.A partir dos dados presentes no array de produtos em `data.js`. Para cada produto, insira uma tag `<img>` com a classe `product__image`, configurando o atributo src com o valor de srcImg de cada objeto no array.
 
   👀 Dicas:
 Use o método forEach para iterar sobre os produtos.
 
 ## Requisito 2: Ordenação dos Produtos por Preço e Avaliação
-Implemente a funcionalidade de ordenação dos produtos com base em três critérios: `menor preço`, `maior preço` e `avaliação`.O comportamento da ordenação deve alterar a ordem dos produtos exibidos na tela conforme o critério selecionado.
+Implemente a funcionalidade de ordenação dos produtos com base em três critérios: `menor preço`, `maior preço` e `avaliação`. O comportamento da ordenação deve alterar a ordem dos produtos exibidos na tela conforme o critério selecionado.
 
 ## Requisito 3: Filtro de Preço Máximo com Range
 Crie um controle de filtro de preço máximo utilizando um input de tipo range. Os produtos cujo preço seja superior ao valor definido pelo range devem ser excluídos da exibição, mostrando apenas os produtos que atendem ao critério de preço.
