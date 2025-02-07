@@ -154,10 +154,12 @@ a {
   justify-content: space-between;
   padding: 7px;
   border: 1px solid var(--secondary-color);
+  border-radius: 7px;
 }
 
 .navigation__search i {
   color: var(--secondary-color);
+  cursor: pointer;
 }
 .navigation__filters {
     border: none;
@@ -170,7 +172,8 @@ a {
   background: none;
   padding: 2px;
   color: var(--secondary-color);
-  width: 50%;
+  width: 75%;
+  outline: none;
 }
 .product {
   display: flex;
@@ -351,6 +354,7 @@ a {
   align-items: center;
   justify-content: center;
   width: 100%;
+  height: 43rem;
 }
 .container__not-found-img {
   width: 20%;
