@@ -80,7 +80,7 @@ function renderProducts(listProducts) {
       const div = document.createElement("div");
       const name = document.createElement("h2");
       const image = document.createElement("img");
-      const rating = document.createElement("i");
+      const divRating = document.createElement("div");
       const divPrice = document.createElement("div");
       const price = document.createElement("p");
       const priceOld = document.createElement("p");
@@ -89,7 +89,6 @@ function renderProducts(listProducts) {
 
       div.className = "product";
       image.className = "product__image";
-      rating.className = "fa-solid fa-star product__rating-star";
       divPrice.className = "product__div-price";
       price.className = "product__price";
       priceOld.className = "product__price-old";
@@ -113,7 +112,14 @@ function renderProducts(listProducts) {
       button.innerText = "Compre agora";
 
       divPrice.append(price, priceOld);
-      div.append(name, image, rating, divPrice, descripition, button);
+
+      for (let i = 0; i < product.rating; i++) {
+        divRating.innerHTML += `
+          <i class="fa-solid fa-star product__rating-star"></i>
+        `;
+      }
+
+      div.append(name, image, divRating, divPrice, descripition, button);
       smartphones.append(div);
     });
   } else {
@@ -142,7 +148,7 @@ function sortProductsByRatings() {
   sortByRating.splice(0, sortByRating.length);
   products.forEach((product) => sortByRating.push(product));
   sortByRating.sort(function (a, b) {
-    return a.rating - b.rating;
+    return b.rating - a.rating;
   });
 }
 
