@@ -5,9 +5,13 @@ const sortOrder = document.querySelector("#sortOrder");
 const ranger = document.querySelector("#maxRange");
 const buttonSearch = document.querySelector("#navigation__search-icon");
 const productName = document.querySelector("#productName");
-let maxValue = document.querySelector("#maxValue");
 const template = document.querySelector("#not-found-template");
+const btnSubMenu = document.querySelector("#menu-toogle");
+const subMenu = document.querySelector(".submenu");
+const btnMenuHamburguer = document.querySelector("#menu-hamburguer");
+const menuHamburguer = document.querySelector(".header__nav-item__menu");
 const sortByRating = [];
+let maxValue = document.querySelector("#maxValue");
 
 sortOrder.addEventListener("change", () => {
   if (sortOrder.value === "default") {
@@ -43,12 +47,34 @@ productName.addEventListener("keypress", (e) => {
 
 buttonSearch.addEventListener("click", () => {
   const name = productName.value;
-  renderProducts(filterName(name));
+  if (name != "") {
+    renderProducts(filterName(name));
+  } else {
+    smartphones.innerHTML = "";
+    smartphones.append(template.content.cloneNode(true));
+  }
+});
+
+btnSubMenu.addEventListener("click", () => {
+  if (subMenu.style.display === "block") {
+    subMenu.style.display = "none";
+  } else {
+    subMenu.style.display = "block";
+  }
+});
+
+btnMenuHamburguer.addEventListener("click", () => {
+  const visibled = menuHamburguer.dataset.visibled;
+  if (menuHamburguer.style.display === "block") {
+    menuHamburguer.style.display = "none";
+  } else {
+    menuHamburguer.style.display = "block";
+  }
 });
 
 function renderProducts(listProducts) {
   smartphones.innerHTML = "";
-  console.log(listProducts.length)
+
   if (listProducts.length != 0) {
     listProducts.forEach((product) => {
       const div = document.createElement("div");
@@ -91,7 +117,7 @@ function renderProducts(listProducts) {
       smartphones.append(div);
     });
   } else {
-    smartphones.append(template.content.cloneNode(true))
+    smartphones.append(template.content.cloneNode(true));
   }
 }
 
