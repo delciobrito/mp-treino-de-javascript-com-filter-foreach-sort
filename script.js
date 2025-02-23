@@ -39,13 +39,19 @@ ranger.addEventListener("input", () => {
 });
 
 productName.addEventListener("keypress", (e) => {
+  const name = productName.value;
   if (e.key === "Enter") {
-    const name = productName.value;
-    renderProducts(filterName(name));
+    if (name != "") {
+      renderProducts(filterName(name));
+    } else {
+      smartphones.innerHTML = "";
+      const button = document.createElement("button");
+      smartphones.append(template.content.cloneNode(true));
+    }
   }
 });
 
-buttonSearch.addEventListener("click", () => {
+buttonSearch.addEventListener("click", (e) => {
   const name = productName.value;
   if (name != "") {
     renderProducts(filterName(name));
@@ -121,6 +127,21 @@ function renderProducts(listProducts) {
 
       div.append(name, image, divRating, divPrice, descripition, button);
       smartphones.append(div);
+
+      image.addEventListener("mouseover", () => {
+        image.style.cursor = "pointer";
+        image.style.boxShadow = "0px 0px 25px #fff";
+        image.style.scale = 1.07;
+      });
+
+      image.addEventListener("mouseout", () => {
+        image.style.boxShadow = "none";
+        image.style.scale = 1;
+      });
+
+      image.addEventListener("click", () => {
+        productDetails(product);
+      });
     });
   } else {
     smartphones.append(template.content.cloneNode(true));
@@ -167,6 +188,80 @@ function filterName(name) {
     (product) => product.name.toLowerCase().indexOf(name.toLowerCase()) > -1
   );
   return resultName;
+}
+
+function productDetails(product) {
+  const container = document.querySelector(".container");
+  const div = document.createElement("div");
+  const name = document.createElement("h2");
+  const image = document.createElement("img");
+  const divRating = document.createElement("div");
+  const divPrice = document.createElement("div");
+  const price = document.createElement("p");
+  const priceOld = document.createElement("p");
+  const descripition = document.createElement("p");
+  const button = document.createElement("button");
+  const fade = document.createElement("div");
+  const modal = document.createElement("modal");
+  const toClose = document.createElement("p");
+
+  div.className = "product";
+  image.className = "product__image";
+  divPrice.className = "product__div-price";
+  price.className = "product__price";
+  priceOld.className = "product__price-old";
+  descripition.className = "product__text";
+  button.className = "button button-gradient";
+  fade.setAttribute("id", "fade");
+  modal.setAttribute("id", "modal");
+
+  name.innerText = product.name;
+  image.src = product.srcImg;
+
+  price.innerText = `${new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(product.price)} no PIX`;
+
+  priceOld.innerText = `${new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(product.originalPrice)}`;
+
+  descripition.innerText = product.description;
+  button.innerText = "Compre agora";
+
+  divPrice.append(price, priceOld);
+
+  for (let i = 0; i < product.rating; i++) {
+    divRating.innerHTML += `
+          <i class="fa-solid fa-star product__rating-star"></i>
+        `;
+  }
+
+  div.style.width = "70%";
+  toClose.textContent = "X";
+  
+  div.append(name, image, divRating, divPrice, descripition, button);
+  smartphones.append(div);
+  
+  modal.append(toClose, div);
+  fade.append(modal);
+  container.append(fade);
+
+  image.addEventListener("mouseover", () => {
+    image.src = product.backImg;
+    image.style.boxShadow = "";
+    image.style.scale = "";
+  });
+
+  image.addEventListener("mouseout", () => {
+    image.src = product.srcImg;
+  });
+
+  toClose.addEventListener("click", () => {
+    container.removeChild(fade);
+  });
 }
 
 renderProducts(products);
